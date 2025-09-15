@@ -71,9 +71,43 @@ define([
     z: 605.5120849609375 ,               // Elevation in meters
     spatialReference: { wkid: 4326 }
   });
+function createdMeshesUI(geoPoint) {
+  // Create the button
+  const uiGeoPoint = geoPoint.clone();
+  uiGeoPoint.z += 10; // slightly above the model
+  console.log("GeoPoint for UI:");
+  console.log(uiGeoPoint);
+  const btn = document.createElement("button");
+  btn.className = "icon-btn";
+  btn.onclick = on360btnClicked; // attach your function
+  document.body.appendChild(btn);
 
+  // Add logo icon inside the button
+  const img = document.createElement("img");
+  img.src = "./images/360Icon.png"; // replace with your logo path
+  img.alt = "360 view";
+  img.style.width = "24px";
+  img.style.height = "24px";
+  btn.appendChild(img);
+
+  // Positioning logic
+  function updateUIPosition() {
+    const screenPoint = view.toScreen(uiGeoPoint);
+    btn.style.left = screenPoint.x + "px";
+    btn.style.top = screenPoint.y + "px";
+  }
+
+  // Initial and reactive positioning
+  view.watch("extent", updateUIPosition);
+  view.watch("rotation", updateUIPosition);
+  view.watch("zoom", updateUIPosition);
+  view.when(updateUIPosition);
+}
   createMesh("./models/fiaysalia.glb",geoPoint);
+  function on360btnClicked() {
+    document.getElementById("unityPopup").classList.remove("hidden");
 
+  }
   view.on("click", async function(event) {
     console.log("View clicked event");
     const point = view.toMap(event);
@@ -92,7 +126,7 @@ define([
         } else {
           console.log("Clicked only basemap (or empty background)");
           createMesh("./models/sign_Tex.glb", point);
-
+          createdMeshesUI(point);
         }
 
         // Show/hide the 360 viewer popup
@@ -107,7 +141,7 @@ define([
                 createdMeshesUIDs.has(response.results[0].graphic.uid)
             ) { // for added 3d models
               console.log("Clicked on a graphic:", response.results[0].graphic);
-              popup.classList.remove("hidden");
+              //popup.classList.remove("hidden");
             }
           }
         });
