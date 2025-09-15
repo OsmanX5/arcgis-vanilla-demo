@@ -5,9 +5,11 @@ define([
   "esri/Graphic",
   "esri/layers/GraphicsLayer",
   "esri/widgets/Sketch/SketchViewModel",
+  "esri/widgets/BasemapGallery",
   "esri/geometry/Point",
   "./map.js"
-], function(SceneView, Editor, Mesh, Graphic, GraphicsLayer, SketchViewModel, Point, map) {
+  ,"esri/views/Theme"
+], function(SceneView, Editor, Mesh, Graphic, GraphicsLayer, SketchViewModel, BasemapGallery, Point, map, Theme) {
 
   const view = new SceneView({
     container: "viewDiv",
@@ -43,7 +45,7 @@ define([
       featureSources: [{ layer: GraphicsLayer }],
     },
   });
-
+  const createdMeshesUIDs = new Set();
   async function createMesh(meshURL, point) {
     console.log("Loading 3D model from:", meshURL);
     const mesh = await Mesh.createFromGLTF(point, meshURL);
@@ -59,6 +61,8 @@ define([
     });
     graphicsLayer.add(meshGraphic);
     console.log("3D Model added to scene");
+    console.log(meshGraphic);
+    createdMeshesUIDs.add(meshGraphic.uid);
   }
 
   const geoPoint = new Point({
@@ -88,6 +92,7 @@ define([
         } else {
           console.log("Clicked only basemap (or empty background)");
           createMesh("./models/sign_Tex.glb", point);
+
         }
 
         // Show/hide the 360 viewer popup
@@ -98,7 +103,9 @@ define([
         view.hitTest(event).then(function(response) {
           console.log("HitTest response:", response);
           if(response.results.length > 0) {
-            if(response.results[0].type === "graphic") {
+            if(response.results[0].type === "graphic" && 
+                createdMeshesUIDs.has(response.results[0].graphic.uid)
+            ) { // for added 3d models
               console.log("Clicked on a graphic:", response.results[0].graphic);
               popup.classList.remove("hidden");
             }
@@ -111,6 +118,16 @@ define([
     }
   });
 
+  const basemapGallery = new BasemapGallery({ 
+    view: view ,
+    container:"baseMapGallery"
+  });
+  view.ui.add(basemapGallery,"bottom-left");
+
+  view.theme = new Theme({
+  accentColor: [255,0,0,0.8],
+  textColor: [125, 255, 13, 0.9]
+});
   return view;
 });
 function printHi(){

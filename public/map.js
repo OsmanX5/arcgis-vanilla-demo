@@ -3,7 +3,7 @@ define([
   "./layers/buildings.js",
   "./layers/traffic.js",
   "./layers/osmBuildings.js",
-  "./layers/sfBuildings.js"
+  "./layers/sfBuildings.js",
 ], function(Map, buildingsLayer, trafficLayer, osmBuildings, sfBuildings) {
   const map = new Map({
     basemap: "satellite",
@@ -16,6 +16,5 @@ define([
     osmBuildings,
     sfBuildings
   ]);
-
   return map;
 });
