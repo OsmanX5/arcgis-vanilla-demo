@@ -1,60 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArcGIS Vanilla Demo</title>
+    <title lang="ar">نموذج التوأم الرقمي لهيئة البنى التحتية</title>
 
-    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/dark/main.css">
+    <link rel="stylesheet" href="CSS/global.css">
+    <link rel="stylesheet" href="CSS/arcGIS-overrides.css">
+    <link rel="stylesheet" href="CSS/unity.css">
+    <link rel="stylesheet" href="CSS/popups.css">
+    <!-- Add the layerShowToggle CSS -->
+    <link rel="stylesheet" href="CSS/layerShowToggle.css">
 </head>
+
 <body>
 
-  <div class="map-container-outer">
-    <div class="map-box">
-      <div id="viewDiv">
-          
-      </div>
+    <div class="map-container-outer">
+        <div class="map-box">
+            <div id="viewDiv">
 
-    
-    </div>
-
-          <div class="title-bar">
-            Riyadh Digital Twin POC for RIPC
+            </div>
         </div>
 
-        
-    <!-- Popup for Unity 360 App -->
-    <div id="unityPopup" class="popup-overlay hidden">
-      <div class="popup-container">
-        <div class="popup-header">
-          <span class="popup-title">
-            <img src="Images/Logo_White.png" width="32" height="32" alt="360 Icon" style="vertical-align:middle; border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
-            Project Name 360 Viewer
-          </span>
-          <button class="popup-close-btn" title="Close" id="closePopupBtn">&times;</button>
+        <div class="title-bar" lang="ar">
+            نموذج التوأم الرقمي لهيئة البنى التحتية
         </div>
-        <div class="popup-content">
-          <iframe id="unity360iframe" class="unity-iframe" src="360view/index.html" allowfullscreen></iframe>
+
+        <!-- Layer Toggle Switch -->
+        <div class="toggle-container">
+            <label class="toggle-label" for="trafficToggle">عرض حركة المرور</label>
+            <label class="switch">
+                <input type="checkbox" id="trafficToggle">
+                <span class="slider"></span>
+            </label>
+            <span class="toggle-status off" id="toggleStatus">إيقاف</span>
         </div>
-      </div>
-    </div>
-  <div id = "baseMapGallery">
-  <!-- ArcGIS JS API -->
-  <script src="https://js.arcgis.com/4.29/"></script>
-  <!-- Your modular app entry point -->
-  <script src="main.js"></script>
-  <script>
-    // Close popup
-    document.getElementById('closePopupBtn').addEventListener('click', function() {
-      document.getElementById('unityPopup').classList.add('hidden');
-    });
-    // Optional: Close popup when clicking outside the container
-    document.getElementById('unityPopup').addEventListener('click', function(event) {
-      if (event.target === this) {
-        this.classList.add('hidden');
-      }
-    });
-  </script>
+
+        <!-- Popup for Unity 360 App -->
+        <div id="unityPopup" class="popup-overlay hidden">
+            <div class="popup-container">
+                <div class="popup-header">
+                    <span class="popup-title">
+                        <img src="Images/Logo_White.png" width="32" height="32" alt="360 Icon"
+                            style="vertical-align:middle; border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+                        Project Name 360 Viewer
+                    </span>
+                    <button class="popup-close-btn" title="إغلاق" id="closePopupBtn">&times;</button>
+                </div>
+                <div class="popup-content">
+                    <iframe id="unity360iframe" class="unity-iframe" src="360view/index.html" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+        <div id="baseMapGallery">
+
+        </div>
+
+        <!-- ArcGIS JS API -->
+        <script src="https://js.arcgis.com/4.29/"></script>
+        <!-- Your modular app entry point -->
+        <script src="main.js"></script>
+        <!-- Layer Toggle Script -->
+        <script>
+            // Layer toggle switch logic
+            const toggle = document.getElementById('trafficToggle');
+            const status = document.getElementById('toggleStatus');
+
+            function onToggleTraffic(isEnabled) {
+                if (isEnabled) {
+                    status.textContent = 'تشغيل';
+                    status.classList.remove('off');
+                } else {
+                    status.textContent = 'إيقاف';
+                    status.classList.add('off');
+                }
+                // ضع هنا منطق تفعيل/تعطيل طبقة حركة المرور
+                console.log("تم تفعيل عرض حركة المرور:", isEnabled);
+            }
+
+            toggle.addEventListener('change', function() {
+                onToggleTraffic(this.checked);
+            });
+
+            // Initialize status
+            onToggleTraffic(toggle.checked);
+
+            // Close popup
+            document.getElementById('closePopupBtn').addEventListener('click', function() {
+                document.getElementById('unityPopup').classList.add('hidden');
+            });
+            // Optional: Close popup when clicking outside the container
+            document.getElementById('unityPopup').addEventListener('click', function(event) {
+                if (event.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+        </script>
 </body>
+
 </html>

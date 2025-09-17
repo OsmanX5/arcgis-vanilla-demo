@@ -1,0 +1,15 @@
+#baseMapGallery {
+    background: linear-gradient(135deg, #3f2648, #603a6e);
+    border-radius: 0 50px 50px 0;
+    padding: 10px 20px 10px 5px;
+    bottom: 50%;
+    transform: translateY(50%);
+    display: flex;
+    gap: 10px;
+    z-index: 99;
+    height: 30%;
+    width: 200px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+    scrollbar-width: none;
+    outline: 2px solid rgba(255, 255, 255, 1);
+}

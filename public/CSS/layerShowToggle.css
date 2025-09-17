@@ -1,0 +1,93 @@
+.toggle-container {
+    position: fixed;
+    /* Use fixed to keep it on screen even when scrolling */
+    top: 32px;
+    right: 32px;
+    z-index: 2000;
+    /* Higher than ArcGIS widgets */
+    display: inline-flex;
+    align-items: center;
+    border: 2.5px solid #3f2648;
+    border-radius: 14px;
+    padding: 18px 32px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(63, 38, 72, 0.08);
+    gap: 18px;
+    direction: rtl;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    direction: rtl;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d6c7e1;
+    transition: .4s;
+    border-radius: 34px;
+    box-shadow: 0 1px 4px rgba(63, 38, 72, 0.11);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #fff;
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(63, 38, 72, 0.10);
+}
+
+input:checked+.slider {
+    background-color: #603a6e;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+.toggle-label {
+    font-size: 1.18rem;
+    font-weight: 500;
+    color: #3f2648;
+    letter-spacing: 0.03em;
+    user-select: none;
+}
+
+.toggle-status {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    background: #603a6e;
+    border-radius: 8px;
+    padding: 5px 18px;
+    margin-left: 10px;
+    min-width: 52px;
+    text-align: center;
+    transition: background .3s, color .3s;
+    display: inline-block;
+    box-shadow: 0 1px 4px rgba(63, 38, 72, 0.09);
+}
+
+.toggle-status.off {
+    background: #d6c7e1;
+    color: #3f2648;
+}
