@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title lang="ar">نموذج التوأم الرقمي لهيئة البنى التحتية</title>
 
-    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/dark/main.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css">
     <link rel="stylesheet" href="CSS/global.css">
     <link rel="stylesheet" href="CSS/arcGIS-overrides.css">
     <link rel="stylesheet" href="CSS/unity.css">
     <link rel="stylesheet" href="CSS/popups.css">
     <!-- Add the layerShowToggle CSS -->
     <link rel="stylesheet" href="CSS/layerShowToggle.css">
+    <link rel="stylesheet" href="CSS/saved-locations.css">
+    <link rel="stylesheet" href="CSS/sketch-panel.css">
 </head>
 
 <body>
@@ -30,12 +32,12 @@
 
         <!-- Layer Toggle Switch -->
         <div class="toggle-container">
-            <label class="toggle-label" for="trafficToggle">عرض حركة المرور</label>
+            <label class="toggle-label" for="trafficToggle">حركة المرور</label>
             <label class="switch">
                 <input type="checkbox" id="trafficToggle">
                 <span class="slider"></span>
             </label>
-            <span class="toggle-status off" id="toggleStatus">إيقاف</span>
+            <!-- <span class="toggle-status off" id="toggleStatus">إيقاف</span> -->
         </div>
 
         <!-- Popup for Unity 360 App -->
@@ -43,8 +45,7 @@
             <div class="popup-container">
                 <div class="popup-header">
                     <span class="popup-title">
-                        <img src="Images/Logo_White.png" width="32" height="32" alt="360 Icon"
-                            style="vertical-align:middle; border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+                        <img src="Images/Logo_White.png" width="32" height="32" alt="360 Icon">
                         Project Name 360 Viewer
                     </span>
                     <button class="popup-close-btn" title="إغلاق" id="closePopupBtn">&times;</button>
@@ -66,15 +67,15 @@
         <script>
             // Layer toggle switch logic
             const toggle = document.getElementById('trafficToggle');
-            const status = document.getElementById('toggleStatus');
+            //const status = document.getElementById('toggleStatus');
 
             function onToggleTraffic(isEnabled) {
                 if (isEnabled) {
-                    status.textContent = 'تشغيل';
-                    status.classList.remove('off');
+                    //status.textContent = 'تشغيل';
+                    //status.classList.remove('off');
                 } else {
-                    status.textContent = 'إيقاف';
-                    status.classList.add('off');
+                    //status.textContent = 'إيقاف';
+                    //status.classList.add('off');
                 }
                 // ضع هنا منطق تفعيل/تعطيل طبقة حركة المرور
                 console.log("تم تفعيل عرض حركة المرور:", isEnabled);
@@ -98,6 +99,24 @@
                 }
             });
         </script>
+
+
+        <!-- Saved Locations Container -->
+        <div class="saved-places-container">
+            <div class="saved-places-title">الاماكن المحفوظة</div>
+            <div class="saved-places-list">
+                <button class="saved-place-btn"> مدينة الرياض</button>
+                <button class="saved-place-btn">مدينة سان فرانسيسكو</button>
+                <!-- Add more buttons as needed -->
+            </div>
+        </div>
+
+
+        <!-- Sketch Panel Container -->
+        <div id="sketchPanel" class="sketch-panel-container">
+            <div class="sketch-panel-title">اضافة بيانات</div>
+            <div id="sketchWidget"></div>
+        </div>
 </body>
 
 </html>

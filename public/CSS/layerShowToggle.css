@@ -1,10 +1,8 @@
 .toggle-container {
     position: fixed;
-    /* Use fixed to keep it on screen even when scrolling */
     top: 32px;
     right: 32px;
     z-index: 2000;
-    /* Higher than ArcGIS widgets */
     display: inline-flex;
     align-items: center;
     border: 2.5px solid #3f2648;
@@ -14,6 +12,17 @@
     box-shadow: 0 2px 12px rgba(63, 38, 72, 0.08);
     gap: 18px;
     direction: rtl;
+    transition: background 0.3s, border-color 0.3s;
+    width: 180px;
+}
+
+
+/* New: container style when traffic is not ready */
+
+.toggle-container.traffic-loading {
+    background: #e5e0ea !important;
+    border-color: #d6c7e1 !important;
+    /* Optionally, add an overlay or more contrast if desired */
 }
 
 .switch {
@@ -22,6 +31,7 @@
     width: 60px;
     height: 34px;
     direction: rtl;
+    transform: scaleX(-1);
 }
 
 .switch input {
@@ -90,4 +100,39 @@ input:checked+.slider:before {
 .toggle-status.off {
     background: #d6c7e1;
     color: #3f2648;
+}
+
+
+/* Disabled styling for toggle switch */
+
+.switch input:disabled+.slider {
+    background-color: #e5e0ea;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+.switch input:disabled+.slider:before {
+    background-color: #f3f0f7;
+    box-shadow: none;
+}
+
+.switch input:disabled+.slider,
+.switch input:disabled+.slider:before {
+    pointer-events: none;
+}
+
+.toggle-label:has(+ .switch input:disabled),
+.toggle-status:has(+ .switch input:disabled) {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+
+/* Legacy/fallback for .toggle-label and .toggle-status if :has is not supported: */
+
+.switch input:disabled~.toggle-label,
+.switch input:disabled~.toggle-status {
+    opacity: 0.7;
+    cursor: not-allowed;
 }

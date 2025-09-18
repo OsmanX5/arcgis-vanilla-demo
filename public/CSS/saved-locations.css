@@ -1,0 +1,54 @@
+/* Saved Locations Container Styles */
+
+.saved-places-container {
+    position: fixed;
+    top: 120px;
+    /* below the toggle-container */
+    right: 32px;
+    z-index: 2000;
+    width: 200px;
+    border: 2.5px solid #3f2648;
+    border-radius: 14px;
+    padding: 18px 24px 18px 24px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(63, 38, 72, 0.08);
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+}
+
+.saved-places-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #3f2648;
+    margin-bottom: 8px;
+    text-align: right;
+}
+
+.saved-places-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.saved-place-btn {
+    background: #e5e0ea;
+    color: #3f2648;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    text-align: right;
+    box-shadow: 0 1px 4px rgba(63, 38, 72, 0.06);
+}
+
+.saved-place-btn:hover,
+.saved-place-btn:focus {
+    background: #d6c7e1;
+    color: #2a1830;
+}

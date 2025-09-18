@@ -1,5 +1,6 @@
 #baseMapGallery {
-    background: linear-gradient(135deg, #3f2648, #603a6e);
+    background: white;
+    border: 2.5px solid #3f2648;
     border-radius: 0 50px 50px 0;
     padding: 10px 20px 10px 5px;
     bottom: 50%;
