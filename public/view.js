@@ -483,40 +483,40 @@ sketch.visibleElements = {
             }
 
             // Place sign_Tex.glb only in front of the second point in the path
-            if (path.length >= 2) {
-                const pt1 = new Point({
-                    x: path[0][0],
-                    y: path[0][1],
-                    z: path[0][2],
-                    spatialReference: polylineGeom.spatialReference
-                });
-                const pt2 = new Point({
-                    x: path[1][0],
-                    y: path[1][1],
-                    z: path[1][2],
-                    spatialReference: polylineGeom.spatialReference
-                });
-                const dx = pt2.x - pt1.x;
-                const dy = pt2.y - pt1.y;
-                const dz = (pt2.z || 0) - (pt1.z || 0);
-                const length = Math.sqrt(dx*dx + dy*dy + dz*dz);
-                const ux = dx / length;
-                const uy = dy / length;
-                const uz = dz / length;
-                const headingRad = Math.atan2(dy, dx);
-                const headingDeg = headingRad * 180 / Math.PI;
-                const signDist = 1; // 1 meter in front
-                const signPx = pt2.x + ux * signDist;
-                const signPy = pt2.y + uy * signDist;
-                const signPz = (pt2.z || 0) + uz * signDist;
-                const signPoint = new Point({
-                    x: signPx,
-                    y: signPy,
-                    z: signPz,
-                    spatialReference: pt2.spatialReference
-                });
-                createMesh("./models/sign_Tex.glb", signPoint, [0, 0, headingDeg]);
-            }
+            // if (path.length >= 2) {
+            //     const pt1 = new Point({
+            //         x: path[0][0],
+            //         y: path[0][1],
+            //         z: path[0][2],
+            //         spatialReference: polylineGeom.spatialReference
+            //     });
+            //     const pt2 = new Point({
+            //         x: path[1][0],
+            //         y: path[1][1],
+            //         z: path[1][2],
+            //         spatialReference: polylineGeom.spatialReference
+            //     });
+            //     const dx = pt2.x - pt1.x;
+            //     const dy = pt2.y - pt1.y;
+            //     const dz = (pt2.z || 0) - (pt1.z || 0);
+            //     const length = Math.sqrt(dx*dx + dy*dy + dz*dz);
+            //     const ux = dx / length;
+            //     const uy = dy / length;
+            //     const uz = dz / length;
+            //     const headingRad = Math.atan2(dy, dx);
+            //     const headingDeg = headingRad * 180 / Math.PI;
+            //     const signDist = 1; // 1 meter in front
+            //     const signPx = pt2.x + ux * signDist;
+            //     const signPy = pt2.y + uy * signDist;
+            //     const signPz = (pt2.z || 0) + uz * signDist;
+            //     const signPoint = new Point({
+            //         x: signPx,
+            //         y: signPy,
+            //         z: signPz,
+            //         spatialReference: pt2.spatialReference
+            //     });
+            //     createMesh("./models/sign_Tex.glb", signPoint, [0, 0, headingDeg]);
+            // }
         });
     }
     //end of Sketch Layer
