@@ -5,7 +5,7 @@ const WebSocket = require('ws');
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-app.use('/map', express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 // Create HTTP server and attach Express app
 const server = http.createServer(app);
