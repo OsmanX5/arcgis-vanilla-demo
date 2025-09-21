@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>بطاقة معلومات المشروع</title>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      background: #0000;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      width: 400px;
+      height: 640px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 32px rgba(0, 0, 0, 0.13);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #3f2648, #603a6e);
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 18px 0;
+      border-radius: 0 0 25px 25px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      outline: 2px solid rgba(255, 255, 255, 1);
+    }
+
+    .card-body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .section {
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .section h2 {
+      color: #3f2648;
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .section p,
+    .section ul {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .section ul {
+      list-style-type: disc;
+      padding-right: 18px;
+    }
+
+    .card-footer {
+      background: linear-gradient(135deg, #3f2648, #603a6e);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 12px 0;
+      border-radius: 25px 25px 0 0;
+      box-shadow: 0 -6px 15px rgba(0, 0, 0, 0.2);
+      outline: 2px solid rgba(255, 255, 255, 1);
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="card-header">لوحة معلومات المشروع</div>
+  <div class="card-body">
+    <div class="section">
+      <h2>اسم المشروع</h2>
+      <p>مشروع تطوير منصة تعليمية رقمية</p>
+    </div>
+    <div class="section">
+      <h2>مدير المشروع</h2>
+      <p>المهندس أحمد محمد</p>
+    </div>
+    <div class="section">
+      <h2>مدة التنفيذ</h2>
+      <p>12 فبراير 2025 - 20 فبراير 2025 </p>
+    </div>
+    <div class="section">
+      <h2>التكلفة</h2>
+      <p>15,000,000 ريال سعودي</p>
+    </div>
+    <div class="section">
+      <h2>عمق الحفرية</h2>
+      <p>5 أمتار</p>
+    </div>
+    <div class="section">
+      <h2>طول الحفرية</h2>
+      <p>20 متر</p>
+    </div>
+    <div class="section">
+      <h2>آخر التحديثات</h2>
+      <ul>
+        <li>انتهاء مرحلة التحليل (مارس 2025).</li>
+        <li>بداية مرحلة التصميم (أبريل 2025).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

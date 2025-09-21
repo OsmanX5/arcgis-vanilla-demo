@@ -163,7 +163,7 @@ define([
         z: 613.398681640625,
         spatialReference: { wkid: 4326 }
     });
-    createMesh("./models/fiaysalia.glb", alfisalyaPoint);
+    createMesh("./models/fiaysalia.glb", alfisalyaPoint,[0,0,-65]);
     createMesh("./models/sign_Tex.glb", example360Point);
     createdMeshesUI(example360Point);
     // #endregion
@@ -173,7 +173,9 @@ define([
     function on360btnClicked() {
         document.getElementById("unityPopup").classList.remove("hidden");
     }
-
+    function showProjectInputData() {
+        document.getElementById("projectDataInput").classList.remove("hidden");
+    }
     // #endregion
 
     // #region View Events
@@ -402,7 +404,8 @@ sketch.visibleElements = {
                     y: polylineGeom.paths[0][0][1],
                 };
                 console.log("Start point:", startPoint);
-                printPolylineFirstSegmentDistance(polylineGeom);
+                createTheConcerateWalls(polylineGeom);
+                showProjectInputData();
             }
           } else if (event.state === "cancel") {
             sketchViewModel.valueOptions.directionMode = "absolute";
@@ -427,7 +430,7 @@ sketch.visibleElements = {
         }
       });
           // Calculate and print the distance between the first and second points of a polyline
-    function printPolylineFirstSegmentDistance(polylineGeom) {
+    function createTheConcerateWalls(polylineGeom) {
         const concreteWidth = 1.24;
         if (!polylineGeom || !polylineGeom.paths || polylineGeom.paths.length === 0 || polylineGeom.paths[0].length < 2) {
             console.warn("Polyline does not have at least two points.");

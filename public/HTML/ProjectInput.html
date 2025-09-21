@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>إدخال بيانات بطاقة المشروع</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --primary-1: #3f2648;
+      --primary-2: #603a6e;
+      --card-bg: #fff;
+      --page-bg: #e7e7e7;
+      --muted: #666;
+      --accent: #f3f3f7;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      background: var(--page-bg);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .container{
+      width: 920px;
+      max-width: 96vw;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 20px;
+    }
+
+    /* Form card */
+    .form-card{
+      width: 440px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.12);
+      overflow: hidden;
+    }
+
+    .card-header{
+      background: linear-gradient(135deg,var(--primary-1),var(--primary-2));
+      color:#fff;
+      text-align:center;
+      padding:14px 12px;
+      font-weight:bold;
+      font-size:1.2rem;
+      border-radius:0 0 20px 20px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    }
+
+    .card-body{
+      padding:16px;
+      overflow:auto;
+    }
+
+    label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:var(--primary-1);
+    }
+
+    .input-row{
+      margin-bottom:14px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    textarea,
+    .updates-list input[type="text"]{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid #ddd;
+      background:var(--accent);
+      box-sizing:border-box;
+      font-size:0.95rem;
+      direction: rtl;
+    }
+
+    textarea{
+      min-height:80px;
+      resize:vertical;
+    }
+
+    .small{
+      font-size:0.85rem;
+      color:var(--muted);
+      margin-top:6px;
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+    }
+
+    .row .col{
+      flex:1;
+    }
+
+    .buttons{
+      display:flex;
+      gap:10px;
+      margin-top:8px;
+      justify-content: space-between;
+    }
+
+    button{
+      cursor:pointer;
+      border: none;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:600;
+      background: linear-gradient(135deg,var(--primary-1),var(--primary-2));
+      color:white;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+    }
+
+    button.ghost{
+      background: transparent;
+      color: var(--primary-1);
+      border:1px solid #ddd;
+      box-shadow:none;
+      font-weight:700;
+    }
+
+    /* preview card (matches original design) */
+    .preview{
+      width: 400px;
+      height: 640px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .preview .card-header{
+      font-size:1.4rem;
+      border-radius:0 0 25px 25px;
+      padding:18px 0;
+      outline: 2px solid rgba(255,255,255,1);
+    }
+
+    .preview .card-body{
+      flex:1;
+      padding:20px;
+      overflow-y:auto;
+    }
+
+    .section{
+      margin-bottom:12px;
+      padding-bottom:8px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .section h2{
+      color: var(--primary-1);
+      font-size:1rem;
+      margin:0 0 6px 0;
+    }
+
+    .section p, .section ul{
+      margin:0;
+      font-size:0.95rem;
+      color:#333;
+      line-height:1.6;
+    }
+
+    .section ul{
+      list-style-type: disc;
+      padding-right:18px;
+      margin-top:6px;
+    }
+
+    .card-footer{
+      background: linear-gradient(135deg,var(--primary-1),var(--primary-2));
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: bold;
+      text-align: center;
+      padding: 12px 0;
+      border-radius: 25px 25px 0 0;
+      box-shadow: 0 -6px 15px rgba(0,0,0,0.12);
+      outline: 2px solid rgba(255,255,255,1);
+    }
+
+    /* controls for updates list */
+    .updates-list{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .update-item{
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+
+    .update-item input{
+      flex:1;
+    }
+
+    .update-item button{
+      padding:8px 10px;
+      border-radius:8px;
+      background:#f44336;
+      box-shadow:none;
+      font-weight:700;
+      font-size:0.9rem;
+    }
+
+    .add-update{
+      display:flex;
+      gap:8px;
+      margin-top:6px;
+    }
+
+    .muted-note{
+      font-size:0.82rem;
+      color:#999;
+      margin-top:6px;
+    }
+
+    @media (max-width:980px){
+      .container{
+        flex-direction:column-reverse;
+        align-items:center;
+      }
+      .form-card, .preview{ width: 94vw; max-width:640px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Form -->
+    <div class="form-card" role="region" aria-label="نموذج إدخال بيانات المشروع">
+      <div class="card-header">أدخل بيانات بطاقة المشروع</div>
+      <div class="card-body">
+        <div class="input-row">
+          <label for="projectName">اسم المشروع</label>
+          <input id="projectName" type="text" placeholder="مثال: مشروع تطوير منصة تعليمية رقمية" />
+        </div>
+
+        <div class="input-row">
+          <label for="manager">مدير المشروع</label>
+          <input id="manager" type="text" placeholder="المهندس أحمد محمد" />
+        </div>
+
+        <div class="row">
+          <div class="col input-row">
+            <label for="startDate">تاريخ البدء</label>
+            <input id="startDate" type="date" />
+          </div>
+          <div class="col input-row">
+            <label for="endDate">تاريخ الانتهاء</label>
+            <input id="endDate" type="date" />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col input-row">
+            <label for="cost">التكلفة (رقم)</label>
+            <input id="cost" type="number" min="0" placeholder="15000000" />
+            <div class="small">أدخل المبلغ بدون فواصل، الوحدة: ريال سعودي</div>
+          </div>
+
+          <div class="col input-row">
+            <label for="depth">عمق الحفرية (م)</label>
+            <input id="depth" type="number" min="0" step="0.01" placeholder="5" />
+          </div>
+        </div>
+
+        <div class="input-row">
+          <label for="length">طول الحفرية (م)</label>
+          <input id="length" type="number" min="0" step="0.01" placeholder="20" />
+        </div>
+
+        <div class="input-row">
+          <label for="notes">ملاحظات أو وصف مختصر</label>
+          <textarea id="notes" placeholder="اكتب وصفًا مختصرًا إن رغبت..."></textarea>
+        </div>
+
+        <div class="input-row">
+          <label>آخر التحديثات</label>
+          <div class="updates-list" id="updatesList">
+            <!-- update items injected here -->
+          </div>
+
+          <div class="add-update">
+            <input id="newUpdateText" type="text" placeholder="اضف تحديثاً جديداً، مثال: انتهاء مرحلة التحليل (مارس 2025)" />
+            <button id="addUpdateBtn" type="button">إضافة</button>
+          </div>
+          <div class="muted-note">يمكنك إضافة عدة تحديثات — اضغط على × لحذف أي تحديث.</div>
+        </div>
+
+        <div class="buttons" style="margin-top:18px;">
+          <div style="display:flex;gap:10px;">
+            <button id="clearBtn" type="button" class="ghost">مسح الحقول</button>
+          </div>
+          <div>
+            <button id="downloadJson" type="button" class="ghost">تحميل JSON</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // عناصر DOM
+    const projectName = document.getElementById('projectName');
+    const manager = document.getElementById('manager');
+    const startDate = document.getElementById('startDate');
+    const endDate = document.getElementById('endDate');
+    const cost = document.getElementById('cost');
+    const depth = document.getElementById('depth');
+    const lengthEl = document.getElementById('length');
+    const notes = document.getElementById('notes');
+
+    const updatesList = document.getElementById('updatesList');
+    const newUpdateText = document.getElementById('newUpdateText');
+    const addUpdateBtn = document.getElementById('addUpdateBtn');
+
+    const showCardBtn = document.getElementById('showCardBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const downloadJson = document.getElementById('downloadJson');
+
+    // preview elements
+    const pvProjectName = document.getElementById('pvProjectName');
+    const pvManager = document.getElementById('pvManager');
+    const pvDuration = document.getElementById('pvDuration');
+    const pvCost = document.getElementById('pvCost');
+    const pvDepth = document.getElementById('pvDepth');
+    const pvLength = document.getElementById('pvLength');
+    const pvUpdates = document.getElementById('pvUpdates');
+    const pvNotes = document.getElementById('pvNotes');
+
+    // helper: format number with commas (for cost)
+    function formatNumberWithCommas(n) {
+      if (n === '' || n === null || isNaN(n)) return '-';
+      return Number(n).toLocaleString('en-US');
+    }
+
+    // helper: format date to arabic-friendly (YYYY-MM-DD -> D MMMM YYYY)
+    function formatDateForDisplay(d) {
+      if (!d) return null;
+      const date = new Date(d + 'T00:00:00');
+      if (isNaN(date)) return null;
+      // use Intl for Arabic long date
+      try {
+        return new Intl.DateTimeFormat('ar-SA', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+      } catch (e) {
+        return d;
+      }
+    }
+
+    // updates storage (array of strings)
+    let updates = [];
+
+    function renderUpdatesInputs() {
+      updatesList.innerHTML = '';
+      updates.forEach((u, idx) => {
+        const div = document.createElement('div');
+        div.className = 'update-item';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = u;
+        input.addEventListener('input', (e) => {
+          updates[idx] = e.target.value;
+        });
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.textContent = '×';
+        removeBtn.title = 'حذف التحديث';
+        removeBtn.addEventListener('click', () => {
+          updates.splice(idx, 1);
+          renderUpdatesInputs();
+        });
+        div.appendChild(input);
+        div.appendChild(removeBtn);
+        updatesList.appendChild(div);
+      });
+    }
+
+    addUpdateBtn.addEventListener('click', () => {
+      const v = newUpdateText.value.trim();
+      if (!v) return;
+      updates.push(v);
+      newUpdateText.value = '';
+      renderUpdatesInputs();
+    });
+
+    // allow Enter key in newUpdateText to add
+    newUpdateText.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addUpdateBtn.click();
+      }
+    });
+
+    // show preview / populate preview fields
+    showCardBtn.addEventListener('click', () => {
+      const nameVal = projectName.value.trim() || '-';
+      const managerVal = manager.value.trim() || '-';
+      const startVal = startDate.value;
+      const endVal = endDate.value;
+      const costVal = cost.value;
+      const depthVal = depth.value;
+      const lengthVal = lengthEl.value;
+      const notesVal = notes.value.trim() || '-';
+
+      pvProjectName.textContent = nameVal;
+      pvManager.textContent = managerVal;
+
+      // duration formatting
+      const startDisplay = formatDateForDisplay(startVal);
+      const endDisplay = formatDateForDisplay(endVal);
+
+      if (startDisplay && endDisplay) {
+        pvDuration.textContent = `${startDisplay} - ${endDisplay}`;
+      } else if (startDisplay) {
+        pvDuration.textContent = `${startDisplay}`;
+      } else if (endDisplay) {
+        pvDuration.textContent = `${endDisplay}`;
+      } else {
+        pvDuration.textContent = '-';
+      }
+
+      pvCost.textContent = costVal ? `${formatNumberWithCommas(costVal)} ريال سعودي` : '-';
+      pvDepth.textContent = depthVal ? `${depthVal} أمتار` : '-';
+      pvLength.textContent = lengthVal ? `${lengthVal} متر` : '-';
+
+      // updates
+      pvUpdates.innerHTML = '';
+      if (updates.length === 0) {
+        const li = document.createElement('li'); li.textContent = '-'; pvUpdates.appendChild(li);
+      } else {
+        updates.forEach(u => {
+          const li = document.createElement('li');
+          li.textContent = u || '-';
+          pvUpdates.appendChild(li);
+        });
+      }
+
+      pvNotes.textContent = notesVal;
+      // scroll preview to top
+      document.querySelector('.preview .card-body').scrollTop = 0;
+    });
+
+    // clear fields
+    clearBtn.addEventListener('click', () => {
+      if (!confirm('هل تريد مسح جميع الحقول؟')) return;
+      projectName.value = '';
+      manager.value = '';
+      startDate.value = '';
+      endDate.value = '';
+      cost.value = '';
+      depth.value = '';
+      lengthEl.value = '';
+      notes.value = '';
+      updates = [];
+      renderUpdatesInputs();
+      // reset preview placeholders
+      pvProjectName.textContent = '-';
+      pvManager.textContent = '-';
+      pvDuration.textContent = '-';
+      pvCost.textContent = '-';
+      pvDepth.textContent = '-';
+      pvLength.textContent = '-';
+      pvUpdates.innerHTML = '<li>-</li>';
+      pvNotes.textContent = '-';
+    });
+
+    // download JSON representation of the entered data
+    downloadJson.addEventListener('click', () => {
+      const payload = {
+        projectName: projectName.value.trim(),
+        manager: manager.value.trim(),
+        startDate: startDate.value || null,
+        endDate: endDate.value || null,
+        cost: cost.value ? Number(cost.value) : null,
+        depth: depth.value ? Number(depth.value) : null,
+        length: lengthEl.value ? Number(lengthEl.value) : null,
+        notes: notes.value.trim(),
+        updates: updates.slice()
+      };
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", (projectName.value || 'project-data') + ".json");
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      dlAnchor.remove();
+    });
+
+    // initial render (empty)
+    renderUpdatesInputs();
+
+    // Optional: prefill with values (uncomment if you want sample defaults)
+    /*
+    projectName.value = 'مشروع تطوير منصة تعليمية رقمية';
+    manager.value = 'المهندس أحمد محمد';
+    startDate.value = '2025-02-12';
+    endDate.value = '2025-02-20';
+    cost.value = '15000000';
+    depth.value = '5';
+    lengthEl.value = '20';
+    updates = ['انتهاء مرحلة التحليل (مارس 2025)', 'بداية مرحلة التصميم (أبريل 2025)'];
+    renderUpdatesInputs();
+    showCardBtn.click();
+    */
+  </script>
+</body>
+</html>

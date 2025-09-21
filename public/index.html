@@ -25,7 +25,9 @@
 
             </div>
         </div>
-
+        <div class ='our-logo'>
+            <img src="./Images/Logo_White.png" width="50" height="50" alt="Our Logo">
+        </div>
         <div class="title-bar" lang="ar">
             نموذج التوأم الرقمي لهيئة البنى التحتية
         </div>
@@ -42,11 +44,17 @@
 
         <!-- Popup for Unity 360 App -->
         <div id="unityPopup" class="popup-overlay hidden">
+            <div id="projectData">
+                <iframe src="./HTML/projectInfo.html" class="project-data-iframe">
+                    
+                </iframe>
+            </div>
+            
             <div class="popup-container">
                 <div class="popup-header">
                     <span class="popup-title">
                         <img src="Images/Logo_White.png" width="32" height="32" alt="360 Icon">
-                        Project Name 360 Viewer
+                        عرض 360
                     </span>
                     <button class="popup-close-btn" title="إغلاق" id="closePopupBtn">&times;</button>
                 </div>
@@ -55,6 +63,15 @@
                 </div>
             </div>
         </div>
+
+        <div id="projectDataInput" class="popup-overlay hidden">
+            <div id="projectData" >
+                <iframe src="./HTML/ProjectInput.html" class="project-input-data-iframe">
+                </iframe>
+                <input id="projectInputSubmit" class="project-input-data-submit-btn" type="button" value="رفع الطلب">
+            </div>
+        </div>
+
         <div id="baseMapGallery">
 
         </div>
@@ -100,7 +117,15 @@
             });
         </script>
 
-
+        <script>
+            // Handle project input form submission
+            document.getElementById('projectInputSubmit').addEventListener('click', function() {
+                // Logic to handle form submission
+                alert('تم رفع الطلب بنجاح!');
+                // Close the popup after submission
+                document.getElementById('projectDataInput').classList.add('hidden');
+            });
+        </script>
         <!-- Saved Locations Container -->
         <div class="saved-places-container">
             <div class="saved-places-title">الاماكن المحفوظة</div>
@@ -117,6 +142,7 @@
             <div class="sketch-panel-title">اضافة بيانات</div>
             <div id="sketchWidget"></div>
         </div>
+
         <div class="page-footer" lang="ar">
             تحت تطوير شركة المسارات الثلاثية
         </div>
