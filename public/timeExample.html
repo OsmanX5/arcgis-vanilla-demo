@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Time-based layer | Sample | ArcGIS Maps SDK for JavaScript 4.33</title>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #clock {
+        width: 220px;
+        height: 220px;
+      }
+      .esri-ui-corner .esri-component {
+        box-shadow: inherit;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.33/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.33/"></script>
+
+    <script type="module">
+      import Clock from "https://developers.arcgis.com/javascript/latest/sample-code/time-layer/live/clock.js";
+
+      const [intl, Map, MapImageLayer, MapView, Home, esriConfig] = await $arcgis.import([
+        "@arcgis/core/intl.js",
+        "@arcgis/core/Map.js",
+        "@arcgis/core/layers/MapImageLayer.js",
+        "@arcgis/core/views/MapView.js",
+        "@arcgis/core/config.js",
+      ]);
+
+      // An authorization string used to access the traffic service
+     // esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurOjQSQBrLBUOkB75ffCJG76BqC-B-PbCirDIJRV6jZfY_qIe-fMxMHIVJ012_FgFSLtN0gaIbs9uxleEO3Q7-ebGP3O_GJCGdgGGjg-umCSq-pwbtdQgANFS7k-TGtyRcH8ONYs_AC7t2fnGgcrEIYvlFkMHUKBYEEqrV0KU0etzowwWWjxWLIfC7S90-qkL580z_RmUFI_x2Sx8DIfxAIs.AT1_Z9ZhWx9M";
+
+      const trafficLayer = new MapImageLayer({
+        url: "https://traffic.arcgis.com/arcgis/rest/services/World/Traffic/MapServer",
+        dpi: 48,
+        imageFormat: "png32",
+        refreshInterval: 3, // refresh the layer every 3 minutes
+        useViewTime: false,
+      });
+
+      const map = new Map({
+        basemap: "streets-navigation-vector",
+        layers: [trafficLayer],
+      });
+
+      const view = new MapView({
+        map: map,
+        container: "viewDiv",
+        center: [-118.2, 34.047],
+        zoom: 10,
+      });
+
+      const clock = new Clock({
+        el: "clock", // container div
+        skin: "https://developers.arcgis.com/javascript/latest/sample-code/time-layer/live/clock.svg",
+        time: Date.now(), // number of milliseconds elapsed since January 1, 1970, 00:00:00 UTC.
+      });
+
+      view.ui.add("clock", "bottom-right");
+
+      function setDate(time) {
+        // show the latest traffic data if the user
+        // clicks on `live` button on the clock
+        if (clock.mode === "live") {
+          trafficLayer.timeExtent = null;
+        } else {
+          // otherwise shows the traffic data where
+          // the clock handles move to
+          trafficLayer.timeExtent = {
+            start: time,
+            end: time,
+          };
+        }
+      }
+
+      clock.on("time-change", setDate);
+      setDate(Date.now());
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv" class="esri-widget">
+      <div id="clock"></div>
+    </div>
+  </body>
+</html>

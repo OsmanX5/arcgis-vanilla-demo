@@ -12,6 +12,7 @@ define([
     "esri/geometry/Point",
     "esri/views/Theme",
     "esri/widgets/Sketch",
+    "esri/widgets/TimeSlider",
     // Custom layers
     "./layers/buildings.js",
     "./layers/traffic.js",
@@ -29,6 +30,7 @@ define([
     Point,
     Theme,
     Sketch,
+    TimeSlider,
     // Custom layers
     buildingsLayer,
     trafficLayer,
@@ -266,7 +268,6 @@ define([
     view.when(() => {
         AddGoToButtons();
     })
-
     // #endregion
 
     // #region Utility Functions
@@ -523,6 +524,42 @@ sketch.visibleElements = {
         });
     }
     //end of Sketch Layer
+
+    // #region Time Slider
+    const timeSlider = new TimeSlider({
+    container: "timeSliderDiv",
+    view: view,
+        // show data within a given time range
+        // in this case data within one year
+    mode: "instant",
+        fullTimeExtent: { // entire extent of the timeSlider
+            start: new Date(2024, 11, 1),
+            end: new Date(2024, 12, 1)
+        },
+        timeExtent: { // location of timeSlider thumbs
+            start: new Date(2024, 11, 1),
+            end: new Date(2024, 12, 1)
+        },
+    });
+        timeSlider.watch("timeExtent", () => {
+          // only show earthquakes happened up until the end of
+          // timeSlider's current time extent.
+          console.log(timeSlider.timeExtent.end.getTime());
+          setDate(timeSlider.timeExtent.end.getTime());
+        });
+    view.ui.add(timeSlider,);
+
+
+
+    function setDate(time) {
+        console.log("Selected date:", time);
+        // Update traffic layer time extent
+        trafficLayer.timeExtent = {
+            start: time,
+            end: time,
+        };
+    }
+    // #endregion
     return view;
 });
 

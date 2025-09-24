@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="CSS/layerShowToggle.css">
     <link rel="stylesheet" href="CSS/saved-locations.css">
     <link rel="stylesheet" href="CSS/sketch-panel.css">
+    <link rel="stylesheet" href="CSS/time-slider.css">
 </head>
 
 <body>
@@ -75,7 +76,9 @@
         <div id="baseMapGallery">
 
         </div>
+        <div id = "clock">
 
+        </div>
         <!-- ArcGIS JS API -->
         <script src="https://js.arcgis.com/4.29/"></script>
         <!-- Your modular app entry point -->
@@ -127,7 +130,7 @@
             });
         </script>
         <!-- Saved Locations Container -->
-        <div class="saved-places-container">
+        <div class="saved-places-container main-container-box">
             <div class="saved-places-title">الاماكن المحفوظة</div>
             <div class="saved-places-list">
                 <button class="saved-place-btn"> مدينة الرياض</button>
@@ -142,7 +145,11 @@
             <div class="sketch-panel-title">اضافة بيانات</div>
             <div id="sketchWidget"></div>
         </div>
+        
+        <!-- <div class="time-slider-title">محاكاة الوقت</div> -->
 
+        <div id="timeSliderDiv" class="main-container-box">
+        </div>
         <div class="page-footer" lang="ar">
             تحت تطوير شركة المسارات الثلاثية
         </div>

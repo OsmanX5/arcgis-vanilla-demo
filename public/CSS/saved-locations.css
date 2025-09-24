@@ -7,12 +7,6 @@
     right: 32px;
     z-index: 2000;
     width: 200px;
-    border: 2.5px solid #3f2648;
-    border-radius: 14px;
-    padding: 18px 24px 18px 24px;
-    background: #fff;
-    box-shadow: 0 2px 12px rgba(63, 38, 72, 0.08);
-    direction: rtl;
     display: flex;
     flex-direction: column;
     align-items: stretch;

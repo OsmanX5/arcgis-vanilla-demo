@@ -1,0 +1,14 @@
+#timeSliderDiv{
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: auto;
+}
+.time-slider-title{
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #3f2648;
+    margin-bottom: 8px;
+    text-align: center;
+}
